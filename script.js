@@ -75,11 +75,79 @@ class QuizApp {
 
         // Lưu câu trả lời của người dùng
         this.userAnswers[this.currentQuestion] = optionIndex;
+
+        // Phát hiệu ứng âm thanh và hình ảnh
+        this.playAnswerEffect(optionIndex);
     }
 
     navigateToQuestion(index) {
         if (index >= 0 && index < questions.length) {
             this.showQuestion(index);
+        }
+    }
+
+    playAnswerEffect(selectedOption) {
+        const currentQuestion = questions[this.currentQuestion];
+        const isCorrect = selectedOption === currentQuestion.answer;
+
+        if (isCorrect) {
+            // Hiệu ứng khi trả lời đúng
+            if (window.soundEffects) {
+                window.soundEffects.playCorrectSound();
+            }
+            if (window.fireworksEffect) {
+                window.fireworksEffect.showFireworks();
+            }
+            
+            // Hiệu ứng visual cho option đúng
+            const options = this.optionsContainer.querySelectorAll('.option-btn');
+            options[selectedOption].style.animation = 'correctAnswer 0.5s ease';
+            
+            // Thêm CSS animation
+            this.addAnswerAnimations();
+        } else {
+            // Hiệu ứng khi trả lời sai
+            if (window.soundEffects) {
+                window.soundEffects.playWrongSound();
+            }
+            
+            // Hiệu ứng visual cho option sai
+            const options = this.optionsContainer.querySelectorAll('.option-btn');
+            options[selectedOption].style.animation = 'wrongAnswer 0.5s ease';
+            
+            // Hiển thị đáp án đúng
+            options[currentQuestion.answer].classList.add('correct-answer');
+            
+            // Thêm CSS animation
+            this.addAnswerAnimations();
+        }
+    }
+
+    addAnswerAnimations() {
+        // Thêm CSS animations nếu chưa có
+        if (!document.querySelector('#answer-animations')) {
+            const style = document.createElement('style');
+            style.id = 'answer-animations';
+            style.textContent = `
+                @keyframes correctAnswer {
+                    0% { transform: scale(1); background-color: var(--primary-color); }
+                    50% { transform: scale(1.1); background-color: #27ae60; }
+                    100% { transform: scale(1); background-color: var(--primary-color); }
+                }
+                
+                @keyframes wrongAnswer {
+                    0% { transform: scale(1); background-color: var(--primary-color); }
+                    50% { transform: scale(0.95); background-color: #e74c3c; }
+                    100% { transform: scale(1); background-color: var(--primary-color); }
+                }
+                
+                .correct-answer {
+                    background-color: #27ae60 !important;
+                    color: white !important;
+                    animation: correctAnswer 1s ease infinite !important;
+                }
+            `;
+            document.head.appendChild(style);
         }
     }
 
