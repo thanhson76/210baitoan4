@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Toán Lớp 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Trắc Nghiệm Toán Lớp 4</h1>
+            <p>Chào mừng các em đến với bài trắc nghiệm toán học!</p>
+        </header>
+
+        <div class="quiz-container">
+            <div class="question-section">
+                <h2 id="question-text">Câu hỏi sẽ hiển thị ở đây</h2>
+                <div id="options-container" class="options">
+                    <!-- Các lựa chọn sẽ được thêm bằng JavaScript -->
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button id="prev-btn" class="nav-btn">⬅ Câu trước</button>
+                <span id="question-counter">Câu 1/210</span>
+                <button id="next-btn" class="nav-btn">Câu sau ➡</button>
+            </div>
+
+            <div class="score-section">
+                <button id="submit-btn" class="submit-btn">Nộp bài</button>
+                <div id="result" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
